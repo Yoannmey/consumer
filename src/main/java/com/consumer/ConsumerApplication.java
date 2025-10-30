@@ -7,8 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Scanner;
-
 @SpringBootApplication
 public class ConsumerApplication {
 
@@ -18,24 +16,13 @@ public class ConsumerApplication {
 
 
     @Bean
-    public CommandLineRunner run(RESTClient restClient, Functional functional) throws Exception {
-        Scanner scanner = new Scanner(System.in);
-
-        while(true){
-            String call = scanner.nextLine();
-            switch (call){
-                case "restclient":
-                    restClient.get();
-                    restClient.post();
-                    break;
-                case "functional":
-                    functional.testGet();
-                    functional.testPost();
-                    break;
-                default:
-                    break;
-            }
-        }
+    public CommandLineRunner run(RESTClient restClient, Functional functional) {
+        return args -> {
+            restClient.get();
+            restClient.post();
+            functional.testGet();
+            functional.testPost();
+        };
     }
 
 }
