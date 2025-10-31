@@ -1,0 +1,25 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Hello World!
+servers:
+  - url: http://localhost:8080/scor-ref-user-presentation/api/1.3
+paths:
+  /findSCORUserByGroup/aDGroup:
+    get:
+      responses:
+        '200':
+          description: Return list of SCORUser
+          content:
+            application/json:
+              schema:
+                $ref: #/components/schemas/Hello
+
+components:
+  schemas:
+    Hello:
+      required:
+        - text
+      properties:
+        text:
+          type: string
