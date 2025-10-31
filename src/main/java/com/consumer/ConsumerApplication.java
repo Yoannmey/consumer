@@ -1,6 +1,7 @@
 package com.consumer;
 
 import com.consumer.functional.Functional;
+import com.consumer.json.Json;
 import com.consumer.restclient.RESTClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,13 +17,9 @@ public class ConsumerApplication {
 
 
     @Bean
-    public CommandLineRunner run(RESTClient restClient, Functional functional) {
+    public CommandLineRunner run(Json json, Functional functional) {
         return args -> {
-            restClient.get();
-            restClient.post();
-            functional.testGet();
-            functional.testPost();
+            json.generateClass(json.toJson(functional.post()));
         };
     }
-
 }

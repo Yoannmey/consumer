@@ -1,37 +1,37 @@
 package com.consumer.restclient;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+
+import java.io.IOException;
 
 @Component
 @Slf4j
 public class RESTClient {
 
-    public void get(){
+    @Autowired
+    private RestClient restClient;
 
-        RestClient restClient = RestClient.create();
+    public void get() throws IOException, InterruptedException {
 
         ResponseEntity<String> response = restClient.get()
-                .uri("http://localhost:8080/scor-ref-user-presentation/api/testGet")
-                .header("Content-Type", "application/json")
+                .uri("1.3/findSCORUserByGroup/aDGroup")
                 .retrieve()
                 .toEntity(String.class);
 
         log.info(String.valueOf(response.getBody()));
     }
 
-    public void post(){
+    public void post() throws IOException, InterruptedException {
 
-        RestClient restClient = RestClient.create();
-        String body = """
-                a
-                """;
         ResponseEntity<String> response = restClient.post()
-                .uri("http://localhost:8080/scor-ref-user-presentation/api/testPost")
-                .header("Content-Type","application/json")
-                .body(body)
+                .uri("1.3/findSCORUserByEMailAddress")
+                .body("""
+                       {"mail":"example@example.com"}
+                       """)
                 .retrieve()
                 .toEntity(String.class);
 
