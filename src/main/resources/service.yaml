@@ -1,25 +1,94 @@
-openapi: "3.0.0"
+openapi: "3.1.0"
 info:
+  title: Exemple d'API
+  description: Une API pour démonstration
   version: 1.0.0
-  title: Hello World!
+
 servers:
   - url: http://localhost:8080/scor-ref-user-presentation/api/1.3
 paths:
-  /findSCORUserByGroup/aDGroup:
-    get:
+  /findSCORUserByEMailAddress:
+    post:
       responses:
         '200':
-          description: Return list of SCORUser
+          description: test
           content:
             application/json:
               schema:
-                $ref: #/components/schemas/Hello
+                $ref: "#/components/schemas/findByEmail"
+  /findSCORUserByGroup:
+    get:
+      responses:
+        '200':
+          description: test
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/findByGroup"
+
+
+
 
 components:
   schemas:
-    Hello:
-      required:
-        - text
+    findByEmail:
+      type: object
       properties:
-        text:
+        adid:
           type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        endDate:
+          type: calendar
+        activeStatus:
+          type: boolean
+        nameOfManager:
+          type: string
+        jobActivity:
+          type: string
+        mailAddress:
+          type: string
+        officePhone:
+          type: string
+        personalTitle:
+          type: string
+
+    findByGroup:
+      type: object
+      properties:
+        adid:
+          type: string
+        name:
+          type: string
+
+#components:
+#  schemas:
+#    findByEmail:
+#      type: array
+#      SCORUser:
+#        type: object
+#        properties:
+#          adid:
+#            type: string
+#          lastname:
+#            type: string
+#          firstname:
+#            type: string
+#          endDate:
+#            type: string
+#          activeStatus:
+#            type: boolean
+#          nameOfManager:
+#            type: string
+#          jobActivity:
+#            type: string
+#          mailAddress:
+#            type: string
+#          officePhone:
+#            type: string
+#          personalTitle:
+#            type: string
+
+

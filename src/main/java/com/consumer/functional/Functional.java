@@ -2,8 +2,12 @@ package com.consumer.functional;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.openapitools.model.FindByEmail;
+import org.openapitools.model.FindByGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Slf4j
@@ -15,11 +19,11 @@ public class Functional {
     @Autowired
     private String token;
 
-    public String get(){
+    public List<FindByGroup> get(){
          return test.getResponseGet();
     }
 
-    public String post(){
+    public List<FindByEmail> post(){
         return test.getResponsePost("""
                 {"email":"example@example.com"}
                 """

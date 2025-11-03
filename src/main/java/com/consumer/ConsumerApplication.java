@@ -1,14 +1,15 @@
 package com.consumer;
 
 import com.consumer.functional.Functional;
-import com.consumer.json.Json;
 import com.consumer.restclient.RESTClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@Slf4j
 public class ConsumerApplication {
 
     public static void main(String[] args) {
@@ -17,9 +18,10 @@ public class ConsumerApplication {
 
 
     @Bean
-    public CommandLineRunner run(Json json, Functional functional) {
+    public CommandLineRunner run(RESTClient restClient, Functional functional) {
         return args -> {
-            json.generateClass(json.toJson(functional.post()));
+            functional.get();
+            functional.post();
         };
     }
 }

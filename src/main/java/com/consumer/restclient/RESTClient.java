@@ -1,12 +1,21 @@
 package com.consumer.restclient;
 
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
+import org.openapitools.model.FindByEmail;
+import org.openapitools.model.FindByGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Component
 @Slf4j
@@ -15,26 +24,35 @@ public class RESTClient {
     @Autowired
     private RestClient restClient;
 
-    public void get() throws IOException, InterruptedException {
+    public void get() {
 
-        ResponseEntity<String> response = restClient.get()
+        ResponseEntity<List<FindByGroup>> response = restClient.get()
                 .uri("1.3/findSCORUserByGroup/aDGroup")
                 .retrieve()
-                .toEntity(String.class);
+                .toEntity(new ParameterizedTypeReference<>() {
+                });
 
-        log.info(String.valueOf(response.getBody()));
+        for(FindByGroup i: response.getBody()){
+            log.info(i.toString());
+
+        }
     }
 
-    public void post() throws IOException, InterruptedException {
+    public void post() {
 
-        ResponseEntity<String> response = restClient.post()
-                .uri("1.3/findSCORUserByEMailAddress")
-                .body("""
-                       {"mail":"example@example.com"}
-                       """)
-                .retrieve()
-                .toEntity(String.class);
+        ResponseEntity<List<FindByEmail>> response = restClient.post()
+        .uri("1.3/findSCORUserByEMailAddress")
+        .body("""
+               {"mail":"example@example.com"}
+               """)
+        .retrieve()
+        .toEntity(new ParameterizedTypeReference<>() {
+        });
 
-        log.info(String.valueOf(response.getBody()));
+
+        for(FindByEmail i: response.getBody()){
+            log.info(i.toString());
+        }
+
     }
 }
